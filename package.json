@@ -1,0 +1,36 @@
+{
+  "name": "vyle",
+  "version": "0.2.4",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "prepublish": "tsc",
+    "dev": "yarn prepublish && yarn pack && yarn unlink && yarn link"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SPFxAppDev/ts-utility.git"
+  },
+  "keywords": [
+    "typescript",
+    "spfx",
+    "utility",
+    "typescript utility functions"
+  ],
+  "author": "Seryoga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SPFxAppDev/ts-utility/issues"
+  },
+  "homepage": "https://github.com/SPFxAppDev/ts-utility#readme",
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "axios": "^1.3.6"
+  }
+}
