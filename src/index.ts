@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance } from "axios";
+import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export default class Vyle {
   private token!: string;
@@ -16,17 +16,17 @@ export default class Vyle {
     });
   }
 
-  async fetcher(url: string, params: any = {}) {
+  async fetcher(url: string, config: AxiosRequestConfig = {}) {
     try {
-      const results = await this.client.request({ url, ...params });
+      const results = await this.client.request({ url, ...config });
       return results.data;
     } catch (error) {
       throw error;
     }
   }
 
-  async list(body: { [key: string]: any } = {}) {
-    return await this.fetcher("/file/list", { method: "post", body });
+  async list(data: { [key: string]: any } = {}) {
+    return await this.fetcher("/file/list", { method: "post", data });
   }
 
   async remove(file: string) {
@@ -36,10 +36,14 @@ export default class Vyle {
     });
   }
 
-  async add(body: { files: File[] }) {
+  async add(data: { files: File[] }) {
     const formData = new FormData();
-    for (const file of body.files) formData.append("files", file);
+    for (const file of data.files) formData.append("files", file);
 
-    return await this.fetcher("/file", { method: "post", body: formData });
+    return await this.fetcher("/file", {
+      method: "post",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
   }
 }
