@@ -1,5 +1,30 @@
 import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
+export interface Data {
+  id: string;
+  name: string;
+  originalName: string;
+  size: number;
+  type: string;
+  url: string;
+  tempUrl: string;
+  createdAt: Date;
+}
+
+export interface Meta {
+  total: number;
+  perPage: number;
+  page: number;
+  totalPages: number;
+  nextPage?: number;
+  prevPage?: number;
+}
+
+export type Result = {
+  metas: Meta;
+  datas: Array<Data>;
+};
+
 export default class Vyle {
   private token!: string;
   private baseUrl = "http://192.168.100.24:44650";
@@ -26,7 +51,11 @@ export default class Vyle {
   }
 
   async list(data: { [key: string]: any } = {}) {
-    return await this.fetcher("/file/list", { method: "post", data });
+    const result: Result = await this.fetcher("/file/list", {
+      method: "post",
+      data,
+    });
+    return result;
   }
 
   async remove(file: string) {
