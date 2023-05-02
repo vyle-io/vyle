@@ -35,7 +35,7 @@ export default class Vyle {
     this.client = Axios.create({
       baseURL: this.baseUrl,
       headers: {
-        Authorization: `Bearer ${this.token}`,
+        token: `Bearer ${this.token}`,
         "Content-Type": "application/json",
       },
     });
