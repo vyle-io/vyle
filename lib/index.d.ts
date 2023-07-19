@@ -43,8 +43,9 @@ export default class Vyle {
     init(): Promise<Project>;
     remove(): Promise<any>;
     file: {
-        list: (data?: {
-            [key: string]: any;
+        list: ({ page, perPage, }?: {
+            page?: number;
+            perPage?: number;
         }) => Promise<Result>;
         remove: (file: string) => Promise<any>;
         add: (files: File[]) => Promise<any>;

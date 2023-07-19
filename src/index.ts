@@ -84,10 +84,13 @@ export default class Vyle {
   }
 
   file = {
-    list: async (data: { [key: string]: any } = {}) => {
+    list: async ({
+      page,
+      perPage,
+    }: { page?: number; perPage?: number } = {}) => {
       const result: Result = await this.fetcher("/project/file", {
         method: "post",
-        data,
+        data: { page, perPage },
       });
       return result;
     },
