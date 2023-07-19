@@ -1,6 +1,6 @@
 import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-export interface Data {
+export interface VyleFile {
   id: string;
   name: string;
   originalName: string;
@@ -22,26 +22,42 @@ export interface Meta {
 
 export type Result = {
   metas: Meta;
-  datas: Array<Data>;
+  datas: Array<VyleFile>;
 };
 
+export interface Project {
+  id: string;
+  adminToken: string;
+  fetchToken: string;
+  fileMetas: { total: number; perPage: any; totalPages: number };
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const BASE_URL = "http://localhost:44800"; // "http://34.71.110.209:44800";
+
 export default class Vyle {
-  private token!: string;
-  private baseUrl = "http://192.168.100.24:44650";
+  private baseUrl = BASE_URL;
   private client: AxiosInstance;
+  private inited = false;
+
+  project!: Project;
+  token!: string;
 
   constructor(token: string) {
     this.token = token;
     this.client = Axios.create({
       baseURL: this.baseUrl,
       headers: {
-        token: `Bearer ${this.token}`,
+        Authorization: `Bearer ${this.token}`,
         "Content-Type": "application/json",
       },
     });
   }
 
-  async fetcher(url: string, config: AxiosRequestConfig = {}) {
+  private async fetcher(url: string, config: AxiosRequestConfig = {}) {
+    if (!this.inited) throw "Vyle not initialized";
+
     try {
       const results = await this.client.request({ url, ...config });
       return results.data;
@@ -50,29 +66,65 @@ export default class Vyle {
     }
   }
 
-  async list(data: { [key: string]: any } = {}) {
-    const result: Result = await this.fetcher("/file/list", {
-      method: "post",
-      data,
-    });
-    return result;
+  async init() {
+    this.inited = true;
+
+    const result = await this.fetcher("project/current");
+    if (!result) {
+      this.inited = false;
+      throw "project_not_found";
+    }
+
+    this.project = result;
+    return this.project;
   }
 
-  async remove(file: string) {
-    return await this.fetcher("/file/remove", {
-      method: "post",
-      params: { file },
-    });
+  async remove() {
+    return await this.fetcher("project/remove", { method: "POST" });
   }
 
-  async add(data: { files: File[] }) {
-    const formData = new FormData();
-    for (const file of data.files) formData.append("files", file);
+  file = {
+    list: async (data: { [key: string]: any } = {}) => {
+      const result: Result = await this.fetcher("/project/file", {
+        method: "post",
+        data,
+      });
+      return result;
+    },
 
-    return await this.fetcher("/file", {
+    remove: async (file: string) => {
+      return await this.fetcher("project//file/remove", {
+        method: "post",
+        params: { file },
+      });
+    },
+
+    add: async (files: File[]) => {
+      const formData = new FormData();
+      for (const file of files) formData.append("files", file);
+
+      return await this.fetcher("project/file/add", {
+        method: "post",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    },
+  };
+
+  static async addProject() {
+    const client = Axios.create({
+      baseURL: BASE_URL,
       method: "post",
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "application/json" },
     });
+
+    try {
+      const result = await client.request({ url: "project/add" });
+      const vyle = new Vyle(result.data.adminToken);
+      await vyle.init();
+      return vyle;
+    } catch (error) {
+      throw error;
+    }
   }
 }

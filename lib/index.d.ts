@@ -1,5 +1,4 @@
-import { AxiosRequestConfig } from "axios";
-export interface Data {
+export interface VyleFile {
     id: string;
     name: string;
     originalName: string;
@@ -19,20 +18,37 @@ export interface Meta {
 }
 export type Result = {
     metas: Meta;
-    datas: Array<Data>;
+    datas: Array<VyleFile>;
 };
+export interface Project {
+    id: string;
+    adminToken: string;
+    fetchToken: string;
+    fileMetas: {
+        total: number;
+        perPage: any;
+        totalPages: number;
+    };
+    createdAt: Date;
+    updatedAt: Date;
+}
 export default class Vyle {
-    private token;
     private baseUrl;
     private client;
+    private inited;
+    project: Project;
+    token: string;
     constructor(token: string);
-    fetcher(url: string, config?: AxiosRequestConfig): Promise<any>;
-    list(data?: {
-        [key: string]: any;
-    }): Promise<Result>;
-    remove(file: string): Promise<any>;
-    add(data: {
-        files: File[];
-    }): Promise<any>;
+    private fetcher;
+    init(): Promise<Project>;
+    remove(): Promise<any>;
+    file: {
+        list: (data?: {
+            [key: string]: any;
+        }) => Promise<Result>;
+        remove: (file: string) => Promise<any>;
+        add: (files: File[]) => Promise<any>;
+    };
+    static addProject(): Promise<Vyle>;
 }
 //# sourceMappingURL=index.d.ts.map
