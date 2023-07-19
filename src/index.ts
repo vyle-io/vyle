@@ -34,7 +34,7 @@ export interface Project {
   updatedAt: Date;
 }
 
-const BASE_URL = "http://localhost:44800"; // "http://34.71.110.209:44800";
+const BASE_URL = "http://34.71.110.209:44800"; // "http://localhost:44800";
 
 export default class Vyle {
   private baseUrl = BASE_URL;
