@@ -1,7 +1,7 @@
 export interface VyleFile {
     id: string;
     name: string;
-    originalName: string;
+    originaleName: string;
     size: number;
     type: string;
     url: string;
