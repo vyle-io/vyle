@@ -3,7 +3,7 @@ import Axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 export interface VyleFile {
   id: string;
   name: string;
-  originaleName: string;
+  originalName: string;
   size: number;
   type: string;
   url: string;
