@@ -4,9 +4,9 @@ import Vyle from "../src";
   // console.log(await Vyle.addProject());
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Yjg1MjAyNWQ4Zjg0MzI0NDg4NWQ0OCIsImFkbWluIjp0cnVlLCJpYXQiOjE2ODk4MDEyMTh9.wMI9qPFs8RIskNM3AQ_qfk9SKChMY3SSiNBINfplGyY";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjhhNmY2MmVkNzQzYWJjZWVmMTNmYSIsImlhdCI6MTY4OTgyMjk2Nn0.4Pbw3s-m_kKjyNwZw5H6NA34XFbyAcblSQSGowZh64c";
   const v = new Vyle(token);
   await v.init();
 
-  console.log(await v.file.list());
+  console.log(await v.file.list({}));
 })();
