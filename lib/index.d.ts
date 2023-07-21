@@ -15,6 +15,7 @@ export interface Meta {
     totalPages: number;
     nextPage?: number;
     prevPage?: number;
+    size: number;
 }
 export type Result = {
     metas: Meta;
@@ -22,15 +23,15 @@ export type Result = {
 };
 export interface Project {
     id: string;
-    adminToken: string;
-    fetchToken: string;
     fileMetas: {
         total: number;
-        perPage: any;
+        perPage: number;
         totalPages: number;
+        size: number;
     };
     createdAt: Date;
     updatedAt: Date;
+    admin?: boolean;
 }
 export default class Vyle {
     private baseUrl;
@@ -43,9 +44,10 @@ export default class Vyle {
     init(): Promise<Project>;
     remove(): Promise<any>;
     file: {
-        list: ({ page, perPage, }?: {
+        list: ({ page, perPage, expiresIn, }?: {
             page?: number;
             perPage?: number;
+            expiresIn?: string | number;
         }) => Promise<Result>;
         remove: (file: string) => Promise<any>;
         add: (files: File[]) => Promise<any>;

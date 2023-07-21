@@ -18,6 +18,7 @@ export interface Meta {
   totalPages: number;
   nextPage?: number;
   prevPage?: number;
+  size: number;
 }
 
 export type Result = {
@@ -27,11 +28,15 @@ export type Result = {
 
 export interface Project {
   id: string;
-  adminToken: string;
-  fetchToken: string;
-  fileMetas: { total: number; perPage: any; totalPages: number };
+  fileMetas: {
+    total: number;
+    perPage: number;
+    totalPages: number;
+    size: number;
+  };
   createdAt: Date;
   updatedAt: Date;
+  admin?: boolean;
 }
 
 const BASE_URL = "http://34.71.110.209:44800"; // "http://localhost:44800";
@@ -87,10 +92,15 @@ export default class Vyle {
     list: async ({
       page,
       perPage,
-    }: { page?: number; perPage?: number } = {}) => {
+      expiresIn,
+    }: {
+      page?: number;
+      perPage?: number;
+      expiresIn?: string | number;
+    } = {}) => {
       const result: Result = await this.fetcher("/project/file", {
         method: "post",
-        data: { page, perPage },
+        data: { page, perPage, expiresIn },
       });
       return result;
     },
