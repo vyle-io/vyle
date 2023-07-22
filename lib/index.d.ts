@@ -5,7 +5,6 @@ export interface VyleFile {
     size: number;
     type: string;
     url: string;
-    tempUrl: string;
     createdAt: Date;
 }
 export interface Meta {
@@ -44,12 +43,13 @@ export default class Vyle {
     init(): Promise<Project>;
     remove(): Promise<any>;
     file: {
-        list: ({ page, perPage, expiresIn, }?: {
+        list: ({ page, perPage, expiresIn, sortBy, }?: {
             page?: number;
             perPage?: number;
             expiresIn?: string | number;
+            sortBy?: string;
         }) => Promise<Result>;
-        remove: (file: string) => Promise<any>;
+        remove: (fileId: string) => Promise<any>;
         add: (files: File[]) => Promise<any>;
     };
     static addProject(): Promise<Vyle>;

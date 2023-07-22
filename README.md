@@ -113,10 +113,12 @@ async file.list({
   page,
   perPage,
   expiresIn,
+  sortBy
 }: {
   page?: number;
   perPage?: number;
   expiresIn?: string | number;
+  sortBy?: string;
 }): Promise<Result>
 ```
 
@@ -127,13 +129,14 @@ Get a list of files for the current project.
 - `page` (Optional): A number representing the page number to fetch (default is 1).
 - `perPage` (Optional): A number representing the number of files per page (default is 10).
 - `expiresIn` (Optional): A string or number representing the expiration time for temporary URLs of the files (if applicable).
+- `sortBy` (Optional): parameter for sorting the list of files. The sortBy parameter should be a string with the following format: `fieldName:order`. Possible values for fieldName are `name`, `createdAt`, and `size`. Possible values for order are `1` for ascending order and `-1` for descending order.
 
 **Returns:** A Promise that resolves to a Result object containing metadata information and an array of VyleFile objects representing the list of files.
 
 ### file.remove()
 
 ```typescript
-async file.remove(file: string): Promise<any>
+async file.remove(fileId: string): Promise<any>
 ```
 
 Remove a file from the current project.

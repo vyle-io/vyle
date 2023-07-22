@@ -4,7 +4,7 @@ import Vyle from "../src";
   // console.log(await Vyle.addProject());
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjhhNmY2MmVkNzQzYWJjZWVmMTNmYSIsImlhdCI6MTY4OTgyMjk2Nn0.4Pbw3s-m_kKjyNwZw5H6NA34XFbyAcblSQSGowZh64c";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjhhNmY2MmVkNzQzYWJjZWVmMTNmYSIsImFkbWluIjp0cnVlLCJpYXQiOjE2ODk4MjI5NjZ9.t0ABVFre_LJ68I2e8NIy1HELtaGj1X8EAdgvdBzLhvw";
   const v = new Vyle(token);
   await v.init();
 

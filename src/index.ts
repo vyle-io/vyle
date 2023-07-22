@@ -7,7 +7,6 @@ export interface VyleFile {
   size: number;
   type: string;
   url: string;
-  tempUrl: string;
   createdAt: Date;
 }
 
@@ -94,22 +93,24 @@ export default class Vyle {
       page,
       perPage,
       expiresIn,
+      sortBy,
     }: {
       page?: number;
       perPage?: number;
       expiresIn?: string | number;
+      sortBy?: string;
     } = {}) => {
       const result: Result = await this.fetcher("/project/file", {
         method: "post",
-        data: { page, perPage, expiresIn },
+        data: { page, perPage, expiresIn, sortBy },
       });
       return result;
     },
 
-    remove: async (file: string) => {
-      return await this.fetcher("project//file/remove", {
+    remove: async (fileId: string) => {
+      return await this.fetcher("project/file/remove", {
         method: "post",
-        params: { file },
+        data: { id: fileId },
       });
     },
 
