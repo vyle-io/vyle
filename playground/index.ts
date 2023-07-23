@@ -1,10 +1,10 @@
 import Vyle from "../src";
 
 (async function () {
-  // console.log(await Vyle.addProject());
+  console.log(await Vyle.addProject("test@vyle.io"));
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjhhNmY2MmVkNzQzYWJjZWVmMTNmYSIsImFkbWluIjp0cnVlLCJpYXQiOjE2ODk4MjI5NjZ9.t0ABVFre_LJ68I2e8NIy1HELtaGj1X8EAdgvdBzLhvw";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YmM3YWIyYzgzMGMwNjgwMjZlOGNjNiIsImFkbWluIjp0cnVlLCJpYXQiOjE2OTAwNzM3Nzh9.NpI-ZPB-4Jd4GpyFj8Yh4QQeM-6ryw6VtxA0HdkNNUE";
   const v = new Vyle(token);
   await v.init();
 
