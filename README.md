@@ -164,7 +164,7 @@ Add files to the current project.
 ### static addProject()
 
 ```typescript
-static async addProject(): Promise<Vyle>
+static async addProject(email: string): Promise<Vyle>
 ```
 
 Create a new project and initialize a new Vyle instance for the project.

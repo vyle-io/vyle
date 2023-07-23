@@ -126,7 +126,7 @@ export default class Vyle {
     },
   };
 
-  static async addProject() {
+  static async addProject(email: string) {
     const client = Axios.create({
       baseURL: BASE_URL,
       method: "post",
@@ -134,7 +134,10 @@ export default class Vyle {
     });
 
     try {
-      const result = await client.request({ url: "project/add" });
+      const result = await client.request({
+        url: "project/add",
+        data: { email },
+      });
       const vyle = new Vyle(result.data.adminToken);
       await vyle.init();
       return vyle;
