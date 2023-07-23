@@ -52,6 +52,6 @@ export default class Vyle {
         remove: (fileId: string) => Promise<any>;
         add: (files: File[]) => Promise<any>;
     };
-    static addProject(): Promise<Vyle>;
+    static addProject(email: string): Promise<Vyle>;
 }
 //# sourceMappingURL=index.d.ts.map
