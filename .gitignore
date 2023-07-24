@@ -1,8 +1,5 @@
 node_modules
-yarn.lock
 yarn.error
-
-firebase.json
-
+lib
 .vscode
 .env
