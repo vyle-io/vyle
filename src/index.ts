@@ -38,10 +38,10 @@ export interface Project {
   admin?: boolean;
 }
 
-const BASE_URL = "http://34.71.110.209:44800";
+const BASE_URL = "http://34.134.86.250:44800";
 const LOCAL_BASE_URL = "http://localhost:44800";
 
-export default class Vyle {
+class Vyle {
   private baseUrl = BASE_URL;
   private client: AxiosInstance;
   private inited = false;
@@ -146,3 +146,7 @@ export default class Vyle {
     }
   }
 }
+
+if (typeof window !== "undefined") (window as any).Vyle = Vyle;
+
+export default Vyle;
