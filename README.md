@@ -1,3 +1,7 @@
+<p align="center">
+<img src="./doc/images/logo.png" width="200px" alt="vyle" />
+</p>
+
 # Vyle
 
 ## Introduction
